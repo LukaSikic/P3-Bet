@@ -2,8 +2,7 @@ pragma solidity 0.8.14;
 
 contract RimacProject3Bet {
 
-    // Iznos u Wei (1 ETH = 10 ** 18 Wei) potreban za sudjelovanje u 
-okladi
+    // Iznos u Wei (1 ETH = 10 ** 18 Wei) potreban za sudjelovanje u okladi
     uint256 public betValue;
 
     // Maximalan broj sudionika
@@ -15,8 +14,7 @@ okladi
     // Mapping sudionika
     mapping  (uint256 => address) participants;
 
-    // Adresa -> strana (true - znaci da ce P3 do 6mj 2025 normalno 
-voziti odredenim rutama u ZG autonomno bez vozaca, false znaci da nece)
+    // Adresa -> strana (true - znaci da ce P3 do 6mj 2025 normalno voziti odredenim rutama u ZG autonomno bez vozaca, false znaci da nece)
     mapping (address => bool) bets;
 
     // Usuglasavanje oko isplate
@@ -38,8 +36,7 @@ voziti odredenim rutama u ZG autonomno bez vozaca, false znaci da nece)
 
     // Funkcija za okladu
     function makeBet(bool side) public payable {
-        // Vrijednost poslana u Wei potrebna za okladu mora odgovarati 
-vrijednosti varijable betValue
+        // Vrijednost poslana u Wei potrebna za okladu mora odgovarati vrijednosti varijable betValue
         require(msg.value == betValue);
 
         // Provjera da smije biti samo 2 sudinika
@@ -57,8 +54,7 @@ vrijednosti varijable betValue
 
     // Vraca popis sudionika
     function getParticipants() public view returns (address[] memory) {
-        address[] memory memoryArray = new 
-address[](participantsCount);
+        address[] memory memoryArray = new address[](participantsCount);
         for(uint i = 0; i < participantsCount; i++) {
             memoryArray[i] = participants[i];
         }
@@ -83,16 +79,14 @@ address[](participantsCount);
     }
 
     function withdraw() public {
-        require(settlementCount == 2, "Potrebno je da se oba sudionika 
-usuglase");
+        require(settlementCount == 2, "Potrebno je da se oba sudionika usuglase");
 
         // Provjera inicijalne oklade potrazivaca isplate
         bool initialSide = bets[msg.sender];
 
         uint onMySideCounter = 0;
 
-        // Ako su se obje strane usuglasile oko ishoda i na strani je 
-potrazivaca - naplavi isplatu
+        // Ako su se obje strane usuglasile oko ishoda i na strani je potrazivaca - naplavi isplatu
         for(uint i = 0; i < settlementCount; i++) {
             if(settlement[i] == initialSide){
                 onMySideCounter++;
@@ -104,7 +98,6 @@ potrazivaca - naplavi isplatu
         } else {
             // Isplati samo moj ulog
             payable(msg.sender).transfer(betValue);
-
         }
 
     }
