@@ -30,7 +30,7 @@ contract RimacProject3Bet {
     // Konstruktor :)
     constructor() {
         participantsCount = 0;
-        betValue = 1460 ** 14; // 14600000000000000
+        betValue = 14600000000000000; // .0146 ETH
         deadline = 1749990630; // 2025/06/15 12:30:30
     }
 
